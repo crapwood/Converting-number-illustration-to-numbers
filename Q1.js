@@ -1,7 +1,4 @@
 var fs = require("fs");
-var readline = require("readline");
-
-let array = [];
 
 const numbers = {
   63: 0,
@@ -96,9 +93,7 @@ const iter_input = (lines1, lines2, lines3) => {
 };
 
 const getInput = () => {
-  array = fs.readFileSync("input_Q1a.txt", "utf8").split("\n");
-  // check first line first if it works
-
+  let array = fs.readFileSync("input_Q1a.txt", "utf8").split("\n");
   let afterParse = [];
 
   for (let i = 0; i < array.length - 4; i += 4) {
