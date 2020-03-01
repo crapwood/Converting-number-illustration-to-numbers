@@ -23,30 +23,73 @@ const firstLvl = lines => {
   for (let i = 0; i < lines.length; i++) {
     if (i % 3 == 0 && i != 0) {
       k++;
+    }
+    if (lines[i] == "_") {
+      res[k] += 1;
     } else {
-      if (lines[i] == "_") {
-        res[k] += 1;
-      } else {
-        res[k] += 0;
-      }
+      res[k] += 0;
     }
   }
-  console.log(res);
+  return res;
 };
-const secondLvl = lines => {};
-const thirdLvl = lines => {};
+const secondLvl = lines => {
+  let k = 0;
+  let res = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  for (let i = 0; i < lines.length; i++) {
+    if (i % 3 == 0 && i != 0) {
+      k++;
+    }
+    if (lines[i] == "_") {
+      res[k] += 64;
+    } else if (lines[i] == "|") {
+      if (i % 3 == 0) {
+        res[k] += 2;
+      } else {
+        res[k] += 32;
+      }
+    } else {
+      res[k] += 0;
+    }
+  }
+  return res;
+};
+const thirdLvl = lines => {
+  let k = 0;
+  let res = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  for (let i = 0; i < lines.length; i++) {
+    if (i % 3 == 0 && i != 0) {
+      k++;
+    }
+    if (lines[i] == "_") {
+      res[k] += 8;
+    } else if (lines[i] == "|") {
+      if (i % 3 == 0) {
+        res[k] += 4;
+      } else {
+        res[k] += 16;
+      }
+    } else {
+      res[k] += 0;
+    }
+  }
+  return res;
+};
 
 const iter_input = (lines1, lines2, lines3) => {
-  let res = [];
-  firstLvl(lines1);
-  secondLvl(lines2);
-  thirdLvl(lines3);
+  let res = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  let res1 = firstLvl(lines1);
+  let res2 = secondLvl(lines2);
+  let res3 = thirdLvl(lines3);
+  for (let i = 0; i < 9; i++) {
+    let temp = res1[i] + res2[i];
+    res[i] += temp + res3[i];
+  }
   console.log(res);
 };
 
 const getInput = () => {
   array = fs.readFileSync("input_Q1a.txt", "utf8").split("\n");
-  console.log(array[0]);
+  // check first line first if it works
   iter_input(array[0], array[1], array[2]);
 };
 getInput();
