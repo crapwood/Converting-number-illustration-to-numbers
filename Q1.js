@@ -6,14 +6,15 @@ let array = [];
 const numbers = {
   63: 0,
   6: 1,
-  91: 2,
-  79: 3,
-  102: 4,
-  109: 5,
-  125: 6,
-  7: 7,
+  48: 1,
+  109: 2, // 91: 2,
+  121: 3, // 79: 3,
+  114: 4, // 102: 4,
+  91: 5, // 109: 5,
+  95: 6, // 125: 6,
+  49: 7, // 7: 7,
   127: 8,
-  111: 9,
+  123: 9, // 111: 9,
   0: " "
 };
 
@@ -76,6 +77,7 @@ const thirdLvl = lines => {
 };
 
 const iter_input = (lines1, lines2, lines3) => {
+  let parseAsciiToNumber = "";
   let res = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   let res1 = firstLvl(lines1);
   let res2 = secondLvl(lines2);
@@ -83,12 +85,25 @@ const iter_input = (lines1, lines2, lines3) => {
   for (let i = 0; i < res1.length; i++) {
     res[i] += res1[i] + res2[i] + res3[i];
   }
-  console.log(res);
+  for (const num of res) {
+    if (num in numbers) {
+      parseAsciiToNumber += numbers[num];
+    } else {
+      parseAsciiToNumber += "?";
+    }
+  }
+  return parseAsciiToNumber;
 };
 
 const getInput = () => {
   array = fs.readFileSync("input_Q1a.txt", "utf8").split("\n");
   // check first line first if it works
-  iter_input(array[0], array[1], array[2]);
+
+  let afterParse = [];
+
+  for (let i = 0; i < array.length - 4; i += 4) {
+    afterParse.push(iter_input(array[i], array[i + 1], array[i + 2]));
+  }
+  console.log(afterParse);
 };
 getInput();
