@@ -80,9 +80,8 @@ const iter_input = (lines1, lines2, lines3) => {
   let res1 = firstLvl(lines1);
   let res2 = secondLvl(lines2);
   let res3 = thirdLvl(lines3);
-  for (let i = 0; i < 9; i++) {
-    let temp = res1[i] + res2[i];
-    res[i] += temp + res3[i];
+  for (let i = 0; i < res1.length; i++) {
+    res[i] += res1[i] + res2[i] + res3[i];
   }
   console.log(res);
 };
